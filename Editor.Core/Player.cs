@@ -1,22 +1,24 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace Visualizer_Core
+using Vector2 = Microsoft.Xna.Framework.Vector2;
+
+namespace Editor_Core
 {
     public class Player
     {
         public Vector2 Position;
         private float _speed = 500; // In pixel/second
 
-        public Vector2 GetPosition()
+        public BulletML.Vector2 GetPosition()
         {
-            return Position;
+            return new BulletML.Vector2(Position.X, Position.Y);
         }
 
         public void Initialize()
         {
             Position.X = Config.GameAeraSize.X / 2f;
-            Position.Y = (Config.GameAeraSize.Y / 2f) + (Visualizer.Graphics.PreferredBackBufferHeight / 2f) - Visualizer.Graphics.PreferredBackBufferHeight / 10f;
+            Position.Y = (Config.GameAeraSize.Y / 2f) + (Editor.Graphics.PreferredBackBufferHeight / 2f) - Editor.Graphics.PreferredBackBufferHeight / 10f;
         }
 
         public void Update(GameTime gameTime)

@@ -9,16 +9,20 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 
+using Color = Microsoft.Xna.Framework.Color;
+using Vector2 = Microsoft.Xna.Framework.Vector2;
+using MathHelper = Microsoft.Xna.Framework.MathHelper;
+
 #if ANDROID
-using Visualizer_Android;
+using Editor_Android;
 #endif
 
-namespace Visualizer_Core
+namespace Editor_Core
 {
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    internal sealed class Visualizer : Game
+    internal sealed class Editor : Game
     {
         public static GraphicsDeviceManager Graphics;
         private SpriteBatch _spriteBatch;
@@ -55,13 +59,13 @@ namespace Visualizer_Core
         private TimeSpan _drawTime;
 
 #if ANDROID
-        private VisualizerActivity _activity;
+        private EditorActivity _activity;
 
-        public Visualizer(VisualizerActivity activity)
+        public Editor(EditorActivity activity)
         {
             _activity = activity;
 #else
-        public Visualizer()
+        public Editor()
         {
             // Allow window resizing
             Window.AllowUserResizing = true;
@@ -226,7 +230,7 @@ namespace Visualizer_Core
                 _spriteBatch.Draw(
                     mover.Texture,
                     mover.Position, null,
-                    mover.Color,
+                    new Color(mover.Color.PackedValue),
                     mover.Direction,
                     new Vector2(mover.Texture.Width / 2f, mover.Texture.Height / 2f), mover.Scale, SpriteEffects.None, 0f
                 );

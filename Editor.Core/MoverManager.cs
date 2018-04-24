@@ -1,9 +1,8 @@
 ﻿using BulletML;
-using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Visualizer_Core
+namespace Editor_Core
 {
     public class MoverManager : IBulletManager
     {
@@ -17,7 +16,7 @@ namespace Visualizer_Core
             _getPlayerPosition = playerDelegate;
         }
 
-        public Vector2 PlayerPosition(IBullet targettedBullet)
+        public BulletML.Vector2 PlayerPosition(IBullet targettedBullet)
         {
             return _getPlayerPosition();
         }

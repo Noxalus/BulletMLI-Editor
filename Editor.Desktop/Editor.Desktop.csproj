@@ -106,7 +106,12 @@
     </None>
     <None Include="app.manifest" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Libraries\BulletMLI\BulletML\BulletML.csproj">
+      <Project>{b7092db7-57e9-455c-b974-cdc1e0f49518}</Project>
+      <Name>BulletML</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="..\Editor.Core\Assets\**\*.*">
       <Link>Assets\%(RecursiveDir)%(FileName)%(Extension)</Link>

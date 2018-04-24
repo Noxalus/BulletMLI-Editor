@@ -2,7 +2,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Visualizer_Core
+using Vector2 = Microsoft.Xna.Framework.Vector2;
+
+namespace Editor_Core
 {
     public class Mover : Bullet
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Visualizer_Core
+namespace Editor_Core
 {
     public class Camera2D
     {

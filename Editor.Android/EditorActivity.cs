@@ -4,9 +4,9 @@ using Android.OS;
 using Android.Views;
 using System.Xml;
 
-namespace Visualizer_Android
+namespace Editor_Android
 {
-    [Activity(Label = "Visualizer.Android"
+    [Activity(Label = "Editor.Android"
         , MainLauncher = true
         , Icon = "@drawable/icon"
         , Theme = "@style/Theme.Splash"
@@ -14,12 +14,12 @@ namespace Visualizer_Android
         , LaunchMode = Android.Content.PM.LaunchMode.SingleInstance
         , ScreenOrientation = ScreenOrientation.FullUser
         , ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.Keyboard | ConfigChanges.KeyboardHidden | ConfigChanges.ScreenSize)]
-    public class VisualizerActivity : Microsoft.Xna.Framework.AndroidGameActivity
+    public class EditorActivity : Microsoft.Xna.Framework.AndroidGameActivity
     {
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            var g = new Visualizer_Core.Visualizer(this);
+            var g = new Editor_Core.Editor(this);
             SetContentView((View)g.Services.GetService(typeof(View)));
             g.Run();
         }

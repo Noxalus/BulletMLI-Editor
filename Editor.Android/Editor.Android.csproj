@@ -95,6 +95,12 @@
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Libraries\BulletMLI\BulletML\BulletML.csproj">
+      <Project>{b7092db7-57e9-455c-b974-cdc1e0f49518}</Project>
+      <Name>BulletML</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="..\Editor.Core\Editor.Core.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

@@ -9,6 +9,8 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Editor.Core", "Editor.Core\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Editor.Android", "Editor.Android\Editor.Android.csproj", "{B03BEED8-5514-49A5-9E86-0FA08C6F9864}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BulletML", "Libraries\BulletMLI\BulletML\BulletML.csproj", "{B7092DB7-57E9-455C-B974-CDC1E0F49518}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Editor.Core\Editor.Core.projitems*{31fa9520-c524-45c4-a438-ceb45b531312}*SharedItemsImports = 13
@@ -42,6 +44,14 @@ Global
 		{B03BEED8-5514-49A5-9E86-0FA08C6F9864}.Release|x86.ActiveCfg = Release|Any CPU
 		{B03BEED8-5514-49A5-9E86-0FA08C6F9864}.Release|x86.Build.0 = Release|Any CPU
 		{B03BEED8-5514-49A5-9E86-0FA08C6F9864}.Release|x86.Deploy.0 = Release|Any CPU
+		{B7092DB7-57E9-455C-B974-CDC1E0F49518}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7092DB7-57E9-455C-B974-CDC1E0F49518}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7092DB7-57E9-455C-B974-CDC1E0F49518}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B7092DB7-57E9-455C-B974-CDC1E0F49518}.Debug|x86.Build.0 = Debug|Any CPU
+		{B7092DB7-57E9-455C-B974-CDC1E0F49518}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7092DB7-57E9-455C-B974-CDC1E0F49518}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7092DB7-57E9-455C-B974-CDC1E0F49518}.Release|x86.ActiveCfg = Release|Any CPU
+		{B7092DB7-57E9-455C-B974-CDC1E0F49518}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
