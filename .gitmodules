@@ -1,0 +1,3 @@
+[submodule "Libraries/BulletMLI"]
+	path = Libraries/BulletMLI
+	url = ../BulletMLI.git
