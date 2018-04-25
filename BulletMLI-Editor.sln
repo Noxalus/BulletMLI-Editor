@@ -9,7 +9,7 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Editor.Core", "Editor.Core\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Editor.Android", "Editor.Android\Editor.Android.csproj", "{B03BEED8-5514-49A5-9E86-0FA08C6F9864}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BulletML", "Libraries\BulletMLI\BulletML\BulletML.csproj", "{B7092DB7-57E9-455C-B974-CDC1E0F49518}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BulletMLI", "Libraries\BulletMLI\BulletMLI\BulletMLI.csproj", "{B7092DB7-57E9-455C-B974-CDC1E0F49518}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
