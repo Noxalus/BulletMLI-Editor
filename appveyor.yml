@@ -24,20 +24,12 @@ install:
 before_build:
   - xamarin-component.exe restore "%ANDROID_PROJECT_PATH%\%ANDROID_PROJECT_FILENAME%"
   - nuget restore -PackagesDirectory "packages"
-  - ps: '& ./Scripts/UpdateAndroidVersion.ps1'
 build:
   parallel: true
   project: '%DEKSTOP_PROJECT_PATH%\%DESKTOP_PROJECT_FILENAME%'
   verbosity: minimal
-build_script:
-  - msbuild "%ANDROID_PROJECT_PATH%\%ANDROID_PROJECT_FILENAME%" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /verbosity:minimal /t:SignAndroidPackage /p:Configuration=Release /p:Platform=AnyCPU /p:AndroidKeyStore=true /p:AndroidSigningKeyAlias="%ANDROID_KEYSTORE_ALIAS%" /p:AndroidSigningKeyPass="%ANDROID_KEYSTORE_PASSWORD%" /p:AndroidSigningKeyStore="%APPVEYOR_BUILD_FOLDER%\%ANDROID_KEYSTORE_PATH%" /p:AndroidSigningStorePass="%ANDROID_KEYSTORE_PASSWORD%"
 after_build:
-  - rename "%APPVEYOR_BUILD_FOLDER%\%ANDROID_PROJECT_PATH%\bin\Android\AnyCPU\Release\io.noxalus.BulletMLI_Editor-Signed.apk" "%APP_NAME%-%APPVEYOR_BUILD_NUMBER%.apk"
   - rename "%APPVEYOR_BUILD_FOLDER%\%DEKSTOP_PROJECT_PATH%\bin\DesktopGL\AnyCPU\Release\Editor.Desktop.exe" "%APP_NAME%-%APPVEYOR_BUILD_NUMBER%.exe"
 artifacts:
-  - path: '%ANDROID_PROJECT_PATH%\bin\Android\AnyCPU\Release\%APP_NAME%-%APPVEYOR_BUILD_NUMBER%.apk'
-    name: '%APP_NAME%'
   - path: '%DEKSTOP_PROJECT_PATH%\bin\DesktopGL\AnyCPU\Release\%APP_NAME%-%APPVEYOR_BUILD_NUMBER%.exe'
     name: '%APP_NAME%'
-deploy_script:
-  - ps: '& ./Scripts/AndroidHockeyAppUpload.ps1'
