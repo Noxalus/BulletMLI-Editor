@@ -14,6 +14,7 @@ environment:
   ANDROID_PROJECT_FILENAME: Editor.Android.csproj
   ANDROID_KEYSTORE_PATH: Keystore\BulletMLI-Editor.keystore
 install:
+  - git submodule update --init --recursive
   - ps: '& ./Scripts/InstallDependencies.ps1'
 before_build:
   - xamarin-component.exe restore "%ANDROID_PROJECT_PATH%\%ANDROID_PROJECT_FILENAME%"
