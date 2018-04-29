@@ -14,8 +14,8 @@ environment:
   ANDROID_PROJECT_PATH: Editor.Android
   ANDROID_PROJECT_FILENAME: Editor.Android.csproj
   ANDROID_KEYSTORE_PATH: Keystore\BulletMLI-Editor.keystore
-  DEKSTOP_PROJECT_PATH: Editor.Dekstop
-  DESKTOP_PROJECT_FILENAME: Editor.Dekstop.csproj
+  DEKSTOP_PROJECT_PATH: Editor.Desktop
+  DESKTOP_PROJECT_FILENAME: Editor.Desktop.csproj
 platform: Any CPU
 configuration: Release
 install:
