@@ -13,6 +13,7 @@ environment:
   ANDROID_PROJECT_PATH: Editor.Android
   ANDROID_PROJECT_FILENAME: Editor.Android.csproj
   ANDROID_KEYSTORE_PATH: Keystore\BulletMLI-Editor.keystore
+  APP_NAME: BulletMLI-Editor
 install:
   - git submodule update --init --recursive
   - ps: '& ./Scripts/InstallDependencies.ps1'
@@ -22,9 +23,9 @@ before_build:
   - ps: '& ./Scripts/UpdateAndroidVersion.ps1'
 build_script:
   - msbuild "%ANDROID_PROJECT_PATH%\%ANDROID_PROJECT_FILENAME%" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /verbosity:minimal /t:SignAndroidPackage /p:Configuration=Release /p:Platform=AnyCPU /p:AndroidKeyStore=true /p:AndroidSigningKeyAlias="%ANDROID_KEYSTORE_ALIAS%" /p:AndroidSigningKeyPass="%ANDROID_KEYSTORE_PASSWORD%" /p:AndroidSigningKeyStore="%APPVEYOR_BUILD_FOLDER%\%ANDROID_KEYSTORE_PATH%" /p:AndroidSigningStorePass="%ANDROID_KEYSTORE_PASSWORD%"
-  - rename "%APPVEYOR_BUILD_FOLDER%\%ANDROID_PROJECT_PATH%\bin\Android\AnyCPU\Release\Editor.Android-Signed.apk" "BulletMLI-Editor-%APPVEYOR_BUILD_NUMBER%.apk"
+  - rename "%APPVEYOR_BUILD_FOLDER%\%ANDROID_PROJECT_PATH%\bin\Android\AnyCPU\Release\Editor.Android-Signed.apk" "%APP_NAME%-%APPVEYOR_BUILD_NUMBER%.apk"
 artifacts:
-  - path: '%ANDROID_PROJECT_PATH%\bin\Android\AnyCPU\Release\-%APPVEYOR_BUILD_NUMBER%.apk'
-    name: BulletMLI Editor
+  - path: '%ANDROID_PROJECT_PATH%\bin\Android\AnyCPU\Release\%APP_NAME%-%APPVEYOR_BUILD_NUMBER%.apk'
+    name: %APP_NAME%
 deploy_script:
   - ps: '& ./Scripts/AndroidHockeyAppUpload.ps1'

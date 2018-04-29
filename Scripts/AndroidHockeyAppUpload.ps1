@@ -1,5 +1,5 @@
 $uri = "https://rink.hockeyapp.net/api/2/apps/$env:HOCKEYAPP_APP_ID/app_versions/upload"
-$filePath = "$env:APPVEYOR_BUILD_FOLDER\$env:ANDROID_PROJECT_PATH\bin\Android\AnyCPU\Release\BulletML-Visualizer-$env:APPVEYOR_BUILD_NUMBER.apk"
+$filePath = "$env:APPVEYOR_BUILD_FOLDER\$env:ANDROID_PROJECT_PATH\bin\Android\AnyCPU\Release\$env:APP_NAME-$env:APPVEYOR_BUILD_NUMBER.apk"
 $method = "POST"
 $param = "ipa"
 $header = @{"X-HockeyAppToken"="$env:HOCKEYAPP_API_TOKEN"}
