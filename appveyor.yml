@@ -34,10 +34,11 @@ build_script:
 after_build:
   - rename "%APPVEYOR_BUILD_FOLDER%\%ANDROID_PROJECT_PATH%\bin\Android\AnyCPU\Release\io.noxalus.BulletMLI_Editor-Signed.apk" "%APP_NAME%-%APPVEYOR_BUILD_NUMBER%.apk"
   - rename "%APPVEYOR_BUILD_FOLDER%\%DEKSTOP_PROJECT_PATH%\bin\DesktopGL\AnyCPU\Release\Editor.Desktop.exe" "%APP_NAME%-%APPVEYOR_BUILD_NUMBER%.exe"
+  - 7z a "%APP_NAME%-%APPVEYOR_BUILD_NUMBER%.zip" "%APPVEYOR_BUILD_FOLDER%\%DEKSTOP_PROJECT_PATH%\bin\DesktopGL\AnyCPU\Release\*"
 artifacts:
   - path: '%ANDROID_PROJECT_PATH%\bin\Android\AnyCPU\Release\%APP_NAME%-%APPVEYOR_BUILD_NUMBER%.apk'
     name: '%APP_NAME%'
-  - path: '%DEKSTOP_PROJECT_PATH%\bin\DesktopGL\AnyCPU\Release\%APP_NAME%-%APPVEYOR_BUILD_NUMBER%.exe'
+  - path: '%APP_NAME%-%APPVEYOR_BUILD_NUMBER%.zip'
     name: '%APP_NAME%'
 deploy_script:
   - ps: '& ./Scripts/AndroidHockeyAppUpload.ps1'
