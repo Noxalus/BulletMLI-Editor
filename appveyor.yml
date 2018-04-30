@@ -16,6 +16,8 @@ environment:
   ANDROID_KEYSTORE_PATH: Keystore\BulletMLI-Editor.keystore
   DESKTOP_PROJECT_PATH: Editor.Desktop
   DESKTOP_PROJECT_FILENAME: Editor.Desktop.csproj
+  GITHUB_DEPLOY_KEY:
+    secure: yWyoIn4lIyTZYx5RitcG7JrO8YOQBvvIXgXSVrTuJqbdT6s7J/QBq67eUDZKl4w+
 platform: Any CPU
 configuration: Release
 install:
@@ -28,11 +30,20 @@ build:
   parallel: true
   project: '%DESKTOP_PROJECT_PATH%\%DESKTOP_PROJECT_FILENAME%'
   verbosity: minimal
-build_script:
-  - msbuild "%ANDROID_PROJECT_PATH%\%ANDROID_PROJECT_FILENAME%" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /verbosity:minimal /t:SignAndroidPackage /p:Configuration=Release /p:Platform=AnyCPU /p:AndroidKeyStore=true /p:AndroidSigningKeyAlias="%ANDROID_KEYSTORE_ALIAS%" /p:AndroidSigningKeyPass="%ANDROID_KEYSTORE_PASSWORD%" /p:AndroidSigningKeyStore="%APPVEYOR_BUILD_FOLDER%\%ANDROID_KEYSTORE_PATH%" /p:AndroidSigningStorePass="%ANDROID_KEYSTORE_PASSWORD%"
 after_build:
   - rename "%APPVEYOR_BUILD_FOLDER%\%DESKTOP_PROJECT_PATH%\bin\DesktopGL\AnyCPU\Release\Editor.Desktop.exe" "%APP_NAME%-%APPVEYOR_BUILD_NUMBER%.exe"
   - 7z a "%APP_NAME%-%APPVEYOR_BUILD_NUMBER%.zip" "%APPVEYOR_BUILD_FOLDER%\%DESKTOP_PROJECT_PATH%\bin\DesktopGL\AnyCPU\Release\*"
 artifacts:
   - path: '%APP_NAME%-%APPVEYOR_BUILD_NUMBER%.zip'
     name: '%APP_NAME%'
+deploy:
+  release: BulletMLI-Editor-v1.0.$(appveyor_build_version)
+  description: 'v1.0.$(appveyor_build_version)'
+  provider: GitHub
+  auth_token: %GITHUB_DEPLOY_KEY%
+  artifact: '%APP_NAME%-%APPVEYOR_BUILD_NUMBER%.zip'
+  draft: false
+  prerelease: false
+  on:
+    branch: master                 # release from master branch only
+    appveyor_repo_tag: false        # deploy on tag push only
