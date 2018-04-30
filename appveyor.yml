@@ -14,7 +14,7 @@ environment:
   ANDROID_PROJECT_PATH: Editor.Android
   ANDROID_PROJECT_FILENAME: Editor.Android.csproj
   ANDROID_KEYSTORE_PATH: Keystore\BulletMLI-Editor.keystore
-  DEKSTOP_PROJECT_PATH: Editor.Desktop
+  DESKTOP_PROJECT_PATH: Editor.Desktop
   DESKTOP_PROJECT_FILENAME: Editor.Desktop.csproj
 platform: Any CPU
 configuration: Release
@@ -26,13 +26,13 @@ before_build:
   - nuget restore -PackagesDirectory "packages"
 build:
   parallel: true
-  project: '%DEKSTOP_PROJECT_PATH%\%DESKTOP_PROJECT_FILENAME%'
+  project: '%DESKTOP_PROJECT_PATH%\%DESKTOP_PROJECT_FILENAME%'
   verbosity: minimal
 build_script:
   - msbuild "%ANDROID_PROJECT_PATH%\%ANDROID_PROJECT_FILENAME%" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /verbosity:minimal /t:SignAndroidPackage /p:Configuration=Release /p:Platform=AnyCPU /p:AndroidKeyStore=true /p:AndroidSigningKeyAlias="%ANDROID_KEYSTORE_ALIAS%" /p:AndroidSigningKeyPass="%ANDROID_KEYSTORE_PASSWORD%" /p:AndroidSigningKeyStore="%APPVEYOR_BUILD_FOLDER%\%ANDROID_KEYSTORE_PATH%" /p:AndroidSigningStorePass="%ANDROID_KEYSTORE_PASSWORD%"
 after_build:
-  - rename "%APPVEYOR_BUILD_FOLDER%\%DEKSTOP_PROJECT_PATH%\bin\DesktopGL\AnyCPU\Release\Editor.Desktop.exe" "%APP_NAME%-%APPVEYOR_BUILD_NUMBER%.exe"
-  - 7z a "%APP_NAME%-%APPVEYOR_BUILD_NUMBER%.zip" "%APPVEYOR_BUILD_FOLDER%\%DEKSTOP_PROJECT_PATH%\bin\DesktopGL\AnyCPU\Release\*"
+  - rename "%APPVEYOR_BUILD_FOLDER%\%DESKTOP_PROJECT_PATH%\bin\DesktopGL\AnyCPU\Release\Editor.Desktop.exe" "%APP_NAME%-%APPVEYOR_BUILD_NUMBER%.exe"
+  - 7z a "%APP_NAME%-%APPVEYOR_BUILD_NUMBER%.zip" "%APPVEYOR_BUILD_FOLDER%\%DESKTOP_PROJECT_PATH%\bin\DesktopGL\AnyCPU\Release\*"
 artifacts:
   - path: '%APP_NAME%-%APPVEYOR_BUILD_NUMBER%.zip'
     name: '%APP_NAME%'
