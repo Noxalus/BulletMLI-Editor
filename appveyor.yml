@@ -37,8 +37,8 @@ artifacts:
   - path: '%APP_NAME%-%APPVEYOR_BUILD_NUMBER%.zip'
     name: '%APP_NAME%'
 deploy:
-  release: BulletMLI-Editor-v1.0.$(appveyor_build_version)
-  description: 'v1.0.$(appveyor_build_version)'
+  release: BulletMLI-Editor-v$(appveyor_build_version)
+  description: 'v$(appveyor_build_version)'
   provider: GitHub
   auth_token: '%GITHUB_DEPLOY_KEY%'
   artifact: '%APP_NAME%-%APPVEYOR_BUILD_NUMBER%.zip'
