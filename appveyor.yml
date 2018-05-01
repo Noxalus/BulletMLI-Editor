@@ -17,7 +17,7 @@ environment:
   DESKTOP_PROJECT_PATH: Editor.Desktop
   DESKTOP_PROJECT_FILENAME: Editor.Desktop.csproj
   GITHUB_DEPLOY_KEY:
-    secure: yWyoIn4lIyTZYx5RitcG7JrO8YOQBvvIXgXSVrTuJqbdT6s7J/QBq67eUDZKl4w+
+    secure: cu4EiJJNEyxgZBvCZ4N0j0DvSqY6Omi5zruSosvK2t0vw2QnKFbNcxacF+M27WB7
 platform: Any CPU
 configuration: Release
 install:
@@ -31,17 +31,17 @@ build:
   project: '%DESKTOP_PROJECT_PATH%\%DESKTOP_PROJECT_FILENAME%'
   verbosity: minimal
 after_build:
-  - rename "%APPVEYOR_BUILD_FOLDER%\%DESKTOP_PROJECT_PATH%\bin\DesktopGL\AnyCPU\Release\Editor.Desktop.exe" "%APP_NAME%-%APPVEYOR_BUILD_NUMBER%.exe"
+  - rename "%APPVEYOR_BUILD_FOLDER%\%DESKTOP_PROJECT_PATH%\bin\DesktopGL\AnyCPU\Release\Editor.Desktop.exe" "%APP_NAME%-v%APPVEYOR_BUILD_VERSION%.exe"
   - 7z a "%APP_NAME%-%APPVEYOR_BUILD_NUMBER%.zip" "%APPVEYOR_BUILD_FOLDER%\%DESKTOP_PROJECT_PATH%\bin\DesktopGL\AnyCPU\Release\*"
 artifacts:
-  - path: '%APP_NAME%-%APPVEYOR_BUILD_NUMBER%.zip'
+  - path: '%APP_NAME%-%APPVEYOR_BUILD_VERSION%.zip'
     name: '%APP_NAME%'
 deploy:
   release: BulletMLI-Editor-v$(appveyor_build_version)
   description: 'v$(appveyor_build_version)'
   provider: GitHub
   auth_token: '%GITHUB_DEPLOY_KEY%'
-  artifact: '%APP_NAME%-%APPVEYOR_BUILD_NUMBER%.zip'
+  artifact: '%APP_NAME%-%APPVEYOR_BUILD_VERSION%.zip'
   draft: false
   prerelease: false
   on:
