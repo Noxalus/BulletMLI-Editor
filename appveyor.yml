@@ -32,16 +32,16 @@ build:
   verbosity: minimal
 after_build:
   - rename "%APPVEYOR_BUILD_FOLDER%\%DESKTOP_PROJECT_PATH%\bin\DesktopGL\AnyCPU\Release\Editor.Desktop.exe" "%APP_NAME%-v%APPVEYOR_BUILD_VERSION%.exe"
-  - 7z a "%APP_NAME%-%APPVEYOR_BUILD_NUMBER%.zip" "%APPVEYOR_BUILD_FOLDER%\%DESKTOP_PROJECT_PATH%\bin\DesktopGL\AnyCPU\Release\*"
+  - 7z a "%APP_NAME%-v%APPVEYOR_BUILD_VERSION%.zip" "%APPVEYOR_BUILD_FOLDER%\%DESKTOP_PROJECT_PATH%\bin\DesktopGL\AnyCPU\Release\*"
 artifacts:
-  - path: '%APP_NAME%-%APPVEYOR_BUILD_VERSION%.zip'
+  - path: '%APP_NAME%-v%APPVEYOR_BUILD_VERSION%.zip'
     name: '%APP_NAME%'
 deploy:
   release: BulletMLI-Editor-v$(appveyor_build_version)
   description: 'v$(appveyor_build_version)'
   provider: GitHub
   auth_token: '%GITHUB_DEPLOY_KEY%'
-  artifact: '%APP_NAME%-%APPVEYOR_BUILD_VERSION%.zip'
+  artifact: '%APP_NAME%-v%APPVEYOR_BUILD_VERSION%.zip'
   draft: false
   prerelease: false
   on:
