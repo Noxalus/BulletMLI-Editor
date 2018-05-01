@@ -24,7 +24,6 @@ for:
       - git submodule update --init --recursive
       - ps: '& ./Scripts/InstallDependencies.ps1'
     before_build:
-      - xamarin-component.exe restore "%ANDROID_PROJECT_PATH%\%ANDROID_PROJECT_FILENAME%"
       - nuget restore -PackagesDirectory "packages"
     build:
       parallel: true
@@ -35,7 +34,7 @@ for:
       - 7z a "%APP_NAME%-v%APPVEYOR_BUILD_VERSION%.zip" "%APPVEYOR_BUILD_FOLDER%\%DESKTOP_PROJECT_PATH%\bin\DesktopGL\AnyCPU\Release\*"
     artifacts:
       - path: '%APP_NAME%-v%APPVEYOR_BUILD_VERSION%.zip'
-        name: '%APP_NAME%'
+        name: '%APP_NAME%-v%APPVEYOR_BUILD_VERSION%'
     deploy:
       release: BulletMLI-Editor-v$(appveyor_build_version)
       description: '%APPVEYOR_REPO_COMMIT_MESSAGE%'
@@ -48,3 +47,20 @@ for:
       on:
         branch: desktop                 # release from master branch only
         appveyor_repo_tag: false        # deploy on tag push only
+  -
+    install:
+      - git submodule update --init --recursive
+      - ps: '& ./Scripts/InstallDependencies.ps1'
+    before_build:
+      - xamarin-component.exe restore "%ANDROID_PROJECT_PATH%\%ANDROID_PROJECT_FILENAME%"
+      - nuget restore "%ANDROID_PROJECT_PATH%/.." -PackagesDirectory "%ANDROID_PROJECT_PATH%/../packages"
+      - ps: '& ./Scripts/UpdateAndroidVersion.ps1'
+    build_script:
+      - msbuild "%ANDROID_PROJECT_PATH%\%ANDROID_PROJECT_FILENAME%" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" /verbosity:minimal /t:SignAndroidPackage /p:Configuration=Release /p:Platform=AnyCPU /p:AndroidKeyStore=true /p:AndroidSigningKeyAlias="%ANDROID_KEYSTORE_ALIAS%" /p:AndroidSigningKeyPass="%ANDROID_KEYSTORE_PASSWORD%" /p:AndroidSigningKeyStore="%APPVEYOR_BUILD_FOLDER%\%ANDROID_KEYSTORE_PATH%" /p:AndroidSigningStorePass="%ANDROID_KEYSTORE_PASSWORD%"
+    after_build:
+      - rename "%APPVEYOR_BUILD_FOLDER%\%ANDROID_PROJECT_PATH%\bin\Android\AnyCPU\Release\io.noxalus.BulletMLI_Editor-Signed.apk" "%APP_NAME%-v%APPVEYOR_BUILD_VERSION%.apk"
+    artifacts:
+      - path: '%ANDROID_PROJECT_PATH%\bin\Android\AnyCPU\Release\%APP_NAME%-v%APPVEYOR_BUILD_VERSION%.apk'
+        name: '%APP_NAME%-v%APPVEYOR_BUILD_VERSION%'
+    deploy_script:
+      - ps: '& ./Scripts/AndroidHockeyAppUpload.ps1'
