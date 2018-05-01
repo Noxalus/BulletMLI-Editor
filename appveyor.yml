@@ -16,8 +16,6 @@ environment:
   ANDROID_KEYSTORE_PATH: Keystore\BulletMLI-Editor.keystore
   DESKTOP_PROJECT_PATH: Editor.Desktop
   DESKTOP_PROJECT_FILENAME: Editor.Desktop.csproj
-  GITHUB_DEPLOY_KEY:
-    secure: pYv9OOc9BLt7lGhdyrO1NjvMxXrbLf91/R7DaSky1rK1jiPPz3fhmVF9R4MTP1i7
 platform: Any CPU
 configuration: Release
 install:
@@ -38,9 +36,10 @@ artifacts:
     name: '%APP_NAME%'
 deploy:
   release: BulletMLI-Editor-v$(appveyor_build_version)
-  description: 'v$(appveyor_build_version)'
+  description: '%APPVEYOR_REPO_COMMIT_MESSAGE%'
   provider: GitHub
-  auth_token: '%GITHUB_DEPLOY_KEY%'
+  auth_token:
+    secure: pYv9OOc9BLt7lGhdyrO1NjvMxXrbLf91/R7DaSky1rK1jiPPz3fhmVF9R4MTP1i7
   artifact: '%APP_NAME%-v%APPVEYOR_BUILD_VERSION%.zip'
   draft: false
   prerelease: false
