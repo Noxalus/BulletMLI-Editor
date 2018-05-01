@@ -17,7 +17,7 @@ environment:
   DESKTOP_PROJECT_PATH: Editor.Desktop
   DESKTOP_PROJECT_FILENAME: Editor.Desktop.csproj
   GITHUB_DEPLOY_KEY:
-    secure: cu4EiJJNEyxgZBvCZ4N0j0DvSqY6Omi5zruSosvK2t0vw2QnKFbNcxacF+M27WB7
+    secure: pYv9OOc9BLt7lGhdyrO1NjvMxXrbLf91/R7DaSky1rK1jiPPz3fhmVF9R4MTP1i7
 platform: Any CPU
 configuration: Release
 install:
