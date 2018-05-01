@@ -16,7 +16,7 @@ environment:
   ANDROID_KEYSTORE_PATH: Keystore\BulletMLI-Editor.keystore
   DESKTOP_PROJECT_PATH: Editor.Desktop
   DESKTOP_PROJECT_FILENAME: Editor.Desktop.csproj
-for:
+matrix:
   -
     platform: Any CPU
     configuration: Release
