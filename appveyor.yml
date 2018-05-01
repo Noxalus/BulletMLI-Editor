@@ -16,33 +16,35 @@ environment:
   ANDROID_KEYSTORE_PATH: Keystore\BulletMLI-Editor.keystore
   DESKTOP_PROJECT_PATH: Editor.Desktop
   DESKTOP_PROJECT_FILENAME: Editor.Desktop.csproj
-platform: Any CPU
-configuration: Release
-install:
-  - git submodule update --init --recursive
-  - ps: '& ./Scripts/InstallDependencies.ps1'
-before_build:
-  - xamarin-component.exe restore "%ANDROID_PROJECT_PATH%\%ANDROID_PROJECT_FILENAME%"
-  - nuget restore -PackagesDirectory "packages"
-build:
-  parallel: true
-  project: '%DESKTOP_PROJECT_PATH%\%DESKTOP_PROJECT_FILENAME%'
-  verbosity: minimal
-after_build:
-  - rename "%APPVEYOR_BUILD_FOLDER%\%DESKTOP_PROJECT_PATH%\bin\DesktopGL\AnyCPU\Release\Editor.Desktop.exe" "%APP_NAME%-v%APPVEYOR_BUILD_VERSION%.exe"
-  - 7z a "%APP_NAME%-v%APPVEYOR_BUILD_VERSION%.zip" "%APPVEYOR_BUILD_FOLDER%\%DESKTOP_PROJECT_PATH%\bin\DesktopGL\AnyCPU\Release\*"
-artifacts:
-  - path: '%APP_NAME%-v%APPVEYOR_BUILD_VERSION%.zip'
-    name: '%APP_NAME%'
-deploy:
-  release: BulletMLI-Editor-v$(appveyor_build_version)
-  description: '%APPVEYOR_REPO_COMMIT_MESSAGE%'
-  provider: GitHub
-  auth_token:
-    secure: pYv9OOc9BLt7lGhdyrO1NjvMxXrbLf91/R7DaSky1rK1jiPPz3fhmVF9R4MTP1i7
-  artifact: '%APP_NAME%-v%APPVEYOR_BUILD_VERSION%.zip'
-  draft: false
-  prerelease: false
-  on:
-    branch: desktop                 # release from master branch only
-    appveyor_repo_tag: false        # deploy on tag push only
+for:
+  -
+    platform: Any CPU
+    configuration: Release
+    install:
+      - git submodule update --init --recursive
+      - ps: '& ./Scripts/InstallDependencies.ps1'
+    before_build:
+      - xamarin-component.exe restore "%ANDROID_PROJECT_PATH%\%ANDROID_PROJECT_FILENAME%"
+      - nuget restore -PackagesDirectory "packages"
+    build:
+      parallel: true
+      project: '%DESKTOP_PROJECT_PATH%\%DESKTOP_PROJECT_FILENAME%'
+      verbosity: minimal
+    after_build:
+      - rename "%APPVEYOR_BUILD_FOLDER%\%DESKTOP_PROJECT_PATH%\bin\DesktopGL\AnyCPU\Release\Editor.Desktop.exe" "%APP_NAME%-v%APPVEYOR_BUILD_VERSION%.exe"
+      - 7z a "%APP_NAME%-v%APPVEYOR_BUILD_VERSION%.zip" "%APPVEYOR_BUILD_FOLDER%\%DESKTOP_PROJECT_PATH%\bin\DesktopGL\AnyCPU\Release\*"
+    artifacts:
+      - path: '%APP_NAME%-v%APPVEYOR_BUILD_VERSION%.zip'
+        name: '%APP_NAME%'
+    deploy:
+      release: BulletMLI-Editor-v$(appveyor_build_version)
+      description: '%APPVEYOR_REPO_COMMIT_MESSAGE%'
+      provider: GitHub
+      auth_token:
+        secure: pYv9OOc9BLt7lGhdyrO1NjvMxXrbLf91/R7DaSky1rK1jiPPz3fhmVF9R4MTP1i7
+      artifact: '%APP_NAME%-v%APPVEYOR_BUILD_VERSION%.zip'
+      draft: false
+      prerelease: false
+      on:
+        branch: desktop                 # release from master branch only
+        appveyor_repo_tag: false        # deploy on tag push only
