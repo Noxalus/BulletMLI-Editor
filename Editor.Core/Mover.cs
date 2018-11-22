@@ -1,5 +1,4 @@
 ﻿using BulletML;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Vector2 = Microsoft.Xna.Framework.Vector2;
@@ -37,9 +36,9 @@ namespace Editor_Core
             Used = true;
         }
 
-        public override void Update()
+        public override void Update(float dt)
         {
-            base.Update();
+            base.Update(dt);
 
             // SpriteIndex changed? => we need to update the bullet texture
             if (_currentSpriteIndex != SpriteIndex)

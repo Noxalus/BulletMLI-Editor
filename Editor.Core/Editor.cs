@@ -71,6 +71,9 @@ namespace Editor_Core
             Window.AllowUserResizing = true;
 #endif
 
+            IsFixedTimeStep = true;//false;
+            TargetElapsedTime = TimeSpan.FromSeconds(1d / 60d); //60);
+
             Graphics = new GraphicsDeviceManager(this)
             {
                 PreferredBackBufferWidth = 1280,
@@ -192,6 +195,8 @@ namespace Editor_Core
 
         protected override void Update(GameTime gameTime)
         {
+            float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
             _fpsCounter.Update(gameTime);
 
             _stopWatch.Reset();
@@ -200,7 +205,7 @@ namespace Editor_Core
             HandleInput(gameTime);
 
             if (!_pause)
-                _moverManager.Update();
+                _moverManager.Update(dt);
 
             _player.Update(gameTime);
 

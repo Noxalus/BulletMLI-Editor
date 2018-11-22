@@ -1,19 +1,35 @@
-﻿using BulletML;
+﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
+using BulletML;
 
 namespace Editor_Core
 {
     public class MoverManager : IBulletManager
     {
         public readonly List<Mover> Movers = new List<Mover>();
-        private readonly List<Mover> _topLevelMovers = new List<Mover>();
         private readonly PositionDelegate _getPlayerPosition;
         public List<Texture2D> BulletTextures;
+
+        private static readonly Random Random = new Random(DateTime.Now.Millisecond);
 
         public MoverManager(PositionDelegate playerDelegate)
         {
             _getPlayerPosition = playerDelegate;
+
+            BulletML.Configuration.RandomNextFloat = RandomNextFloat;
+            BulletML.Configuration.RandomNextInt = RandomNextInt;
+            BulletML.Configuration.YUpAxis = true;
+        }
+
+        public float RandomNextFloat()
+        {
+            return (float)Random.NextDouble();
+        }
+
+        public int RandomNextInt(int min, int max)
+        {
+            return Random.Next(min, max);
         }
 
         public BulletML.Vector2 PlayerPosition(IBullet targettedBullet)
@@ -26,10 +42,7 @@ namespace Editor_Core
             var mover = new Mover(this);
             mover.Init();
 
-            if (topBullet)
-                _topLevelMovers.Add(mover);
-            else
-                Movers.Add(mover);
+            Movers.Add(mover);
 
             return mover;
         }
@@ -42,13 +55,10 @@ namespace Editor_Core
                 mover.Used = false;
         }
 
-        public void Update()
+        public void Update(float dt)
         {
             for (int i = 0; i < Movers.Count; i++)
-                Movers[i].Update();
-
-            for (int i = 0; i < _topLevelMovers.Count; i++)
-                _topLevelMovers[i].Update();
+                Movers[i].Update(dt);
 
             FreeMovers();
         }
@@ -63,21 +73,11 @@ namespace Editor_Core
                     i--;
                 }
             }
-
-            for (int i = 0; i < _topLevelMovers.Count; i++)
-            {
-                if (_topLevelMovers[i].TasksFinished())
-                {
-                    _topLevelMovers.RemoveAt(i);
-                    i--;
-                }
-            }
         }
 
         public void Clear()
         {
             Movers.Clear();
-            _topLevelMovers.Clear();
         }
     }
 }
