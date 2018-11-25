@@ -236,7 +236,7 @@ namespace Editor_Core
                     mover.Texture,
                     mover.Position, null,
                     new Color(mover.Color.PackedValue),
-                    mover.Direction,
+                    mover.Rotation,
                     new Vector2(mover.Texture.Width / 2f, mover.Texture.Height / 2f), mover.Scale, SpriteEffects.None, 0f
                 );
             }
